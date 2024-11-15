@@ -1,0 +1,76 @@
+---
+import { projects } from "../types/index";
+let isAddProjectDialogOpen = false;
+import { FaTable } from "react-icons/fa6";
+import { PiSealWarningBold } from "react-icons/pi";
+import { FaEye } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteForever } from "react-icons/md";
+import ButtonBoolean from "@components/ui/ButtonBoolean";
+
+//handel isAddProjectDialogOpen
+export function setIsAddProjectDialogOpen(value: boolean) {
+  isAddProjectDialogOpen = value;
+}
+
+// add to #addProyect id button
+---
+
+<div>
+  <h1 class="text-3xl font-bold text-[#B19CD9] mb-6">Mis Proyectos Nero</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {
+      projects.map((project) => (
+        <div class="bg-[#2D2D2D] border-[#B19CD9] border-2 shadow-lg hover:shadow-[#B19CD9]/75 transition-shadow duration-300 rounded-lg p-4">
+          <div class="mb-4">
+            <h2 class="text-[#D8B5FF] flex items-center text-xl font-semibold">
+              <span class="text-[#FF00FF] mr-2">
+                <FaTable />
+              </span>
+              {project.name}
+            </h2>
+          </div>
+          <div class="mb-4">
+            <div class="relative h-2 rounded bg-[#CCCCCC] overflow-hidden">
+              <div
+                style={{ width: `${project.progress}%` }}
+                class="absolute inset-0 bg-[#B19CD9]"
+              />
+            </div>
+            <p class="text-[#CCCCCC] flex items-center mt-2">
+              <span class="text-[#FF00FF] mr-2">
+                <PiSealWarningBold />
+              </span>
+              Tareas pendientes:{" "}
+              {project.tasks.filter((t) => t.status !== "completed").length}
+            </p>
+          </div>
+          <div class="flex space-x-5">
+            <a
+              class="text-[#00FFFF] hover:bg-[#00FFFF]/10 p-2 rounded transition flex items-center"
+              href={`proyects/${project.id}`}
+            >
+              <span class="mr-1">
+                <FaEye />{" "}
+              </span>
+              Ver Detalles
+            </a>
+            <button class="text-[#FF00FF] hover:bg-[#FF00FF]/10 p-2 rounded transition flex items-center">
+              <span class="mr-1">
+                <CiEdit />{" "}
+              </span>
+              Editar
+            </button>
+            <button class="text-[#d25151] hover:bg-[#FFFFFF]/10 p-2 rounded transition flex items-center">
+              <span class="mr-1">
+                <MdDeleteForever />{" "}
+              </span>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      ))
+    }
+    <ButtonBoolean initialOpen={isAddProjectDialogOpen} client:visible />
+  </div>
+</div>

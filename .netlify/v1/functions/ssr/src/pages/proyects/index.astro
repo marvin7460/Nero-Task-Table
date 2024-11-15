@@ -1,0 +1,16 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import TableTask from "@components/TableTask.astro";
+import FilterBar from "@components/ui/FilterBar";
+---
+
+<Layout title="Task Table">
+  <Header />
+  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <FilterBar client:visible />
+    <TableTask />
+  </main>
+</Layout>
+
+<style></style>
